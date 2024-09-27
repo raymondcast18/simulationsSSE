@@ -8,13 +8,52 @@
 #Population is a vector
 set.seed(0)
 
-p_birth <- 0.1
-p_death <- 0.05
-p_no_event <- 1 - p_birth - p_death 
+birth1 <- 0.1
+birth2 <- 0.1
+death1 <- 0.05
+death2 <- 0.05
+trans_1_2<-0.5
+trans_2_1<-0.5
 #Probability 
+#Max_Time 
 steps <- 100
-population <- 1
+curr_time <- 0
+max_taxa <- 100
+population <- c(1, 1)
 
+#Dataframe containing information about taxa and past events and time
+# Format:
+# Col1: # of taxa in state 1, Col2: # of taxa in state 2, Col3 time, Col4 Event
+taxa_table_df <- data.frame(
+  Taxa_1 = population[1],
+  Taxa_2 = population[2],
+  Time = curr_time,
+  Event = 'N/A'
+)
+
+while(curr_time <= steps & sum(population) <= max_taxa & sum(population)!=0) {
+  # birth of state 1
+  birth_prob1 <- population[1] * birth1
+  # birth of state 2
+  birth_prob2 <- population[2] * birth2
+  # death of state 1
+  death_prob1 <- population[1] * death1
+  # death of state 2
+  death_prob2 <- population[2] * death2
+  #q-matrix
+  #
+  #       1     2
+  #q = 1 [-, rate 1 to 2]
+  #    2 [rate 2 to 1, -]
+  trans_matrix <- matrix(c(0, population[1]*trans_1_2, population[2]*trans_2_1, 0), nrow = 2, byrow = TRUE)
+  
+  #probability anything can happen
+  all_rates <- c(birth_prob1, birth_prob2, death_prob1, death_prob2, trans_matrix[1, 2], trans_matrix[2, 1])
+  next_time <- rexp(1, rate = 1/sum(all_rates))
+  print(next_time)
+  curr_time = 101
+  
+}
 for (i in 1:steps) {
 #If you still are alive draw again  
   if (tail(population, 1) > 0) {
