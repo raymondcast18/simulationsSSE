@@ -81,14 +81,20 @@ plot(population, type = "l")
 
 
 #GRACE ADDED TO TRY AND TEACH HERSELF HOW TO DRAW FROM A UNIFORM DISTRIBUTION
+relative <- cumsum(all_rates / sum(all_rates))
+
+#Draw an event
 draw <- runif(1)
-#My attempt at the stick thing... let me know where I went wrong :)
-if (draw < birth_prob1 / (birth_prob1+death_prob1)) {  #if the value drawn is less than birth state 1 / birth + death state 1 than it is a birth in state 1 
+if (draw < relative[1]) {
   print("speciation state 1")
-} else if (draw < birth_prob2 / (birth_prob2+death_prob2)) {
+} else if (draw < relative[2]) {
   print("speciation state 2")
-} else if (draw > birth_prob1 / (birth_prob1+death_prob1)) {
+} else if (draw < relative[3]) {
   print("death state 1")
-} else if (draw > birth_prob2 / (birth_prob2+death_prob2)) {
+} else if (draw < relative[4]) {
   print("death state 2")
+} else if (draw < relative[5]) {
+  print("transition from state 1 to 2")
+} else if (draw < relative[6]) {
+  print("transition from state 2 to 1")
 }
