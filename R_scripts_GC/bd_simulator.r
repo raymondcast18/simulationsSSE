@@ -78,3 +78,16 @@ else {population[i + 1] <- 0}
   #                   tail(population, 1) + temp)
 }
 plot(population, type = "l")
+
+
+#GRACE ADDED TO TRY AND TEACH HERSELF HOW TO DRAW FROM A UNIFORM DISTRIBUTION
+draw <- runif(1)
+if (draw < birth_prob1 / (birth_prob1+death_prob1)) {
+  print("speciation state 1")
+} else if (draw < birth_prob2 / (birth_prob2+death_prob2)) {
+  print("speciation state 2")
+} else if (draw > birth_prob1 / (birth_prob1+death_prob1)) {
+  print("death state 1")
+} else if (draw > birth_prob2 / (birth_prob2+death_prob2)) {
+  print("death state 2")
+}
