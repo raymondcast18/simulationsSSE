@@ -80,11 +80,14 @@ else {population[i + 1] <- 0}
 plot(population, type = "l")
 
 
-#GRACE ADDED TO TRY AND TEACH HERSELF HOW TO DRAW FROM A UNIFORM DISTRIBUTION
+#Grace added with help of Sean 10-01
+
+#Need to make rate relatice
 relative <- cumsum(all_rates / sum(all_rates))
 
-#Draw an event
+#Draw an event from a uniform distribution
 draw <- runif(1)
+#Serious of else if to detering where the draw falls along the "stick"
 if (draw < relative[1]) {
   print("speciation state 1")
 } else if (draw < relative[2]) {
