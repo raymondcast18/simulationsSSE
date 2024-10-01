@@ -87,7 +87,7 @@ relative <- cumsum(all_rates / sum(all_rates))
 
 #Draw an event from a uniform distribution
 draw <- runif(1)
-#Serious of else if to detering where the draw falls along the "stick"
+#Series of else if to detering where the draw falls along the "stick"
 if (draw < relative[1]) {
   print("speciation state 1")
 } else if (draw < relative[2]) {
