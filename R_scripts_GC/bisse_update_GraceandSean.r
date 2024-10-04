@@ -16,6 +16,18 @@ sim_BiSSE = function(birth1, birth2, death1, death2, q12, q21, stop_time, curr_t
   #Change to have binary states
   population <- c(1,1)
   
+  # Running list of IDs
+  taxa_id <- rep(list(1), sum(population))
+  
+  # Taxa Relationships contains the parent-daughter relationships between taxa that will be added as the process is simulated
+  taxa_relationships <- data.frame(
+    Taxa_ID = unlist(taxa_id) ,
+    d_1 = rep(0, length(taxa_id)),
+    d_2 = rep(0, length(taxa_id)),
+    p = rep(0, length(taxa_id))
+  )
+  
+  
   #Make a table
   taxa_table <- data.frame(
     Taxa_1 = population[1],
@@ -90,6 +102,6 @@ sim_BiSSE = function(birth1, birth2, death1, death2, q12, q21, stop_time, curr_t
 
 }
 
-sim_BiSSE(birth1, birth2, death1, death2, q12, q21, stop_time, curr_time, max_taxa)
+result <- sim_BiSSE(birth1, birth2, death1, death2, q12, q21, stop_time, curr_time, max_taxa)
   
 
