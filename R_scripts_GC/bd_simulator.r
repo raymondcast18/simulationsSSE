@@ -51,8 +51,10 @@ while(curr_time <= steps & sum(population) <= max_taxa & sum(population)!=0) {
   all_rates <- c(birth_prob1, birth_prob2, death_prob1, death_prob2, trans_matrix[1, 2], trans_matrix[2, 1])
   next_time <- rexp(1, rate = 1/sum(all_rates))
   print(next_time)
-  curr_time = 101
-  
+  # keep track of time
+  # draw next event using uniform distribution and the all_rates vector
+  #start checking which event we drew using the stick
+  # book keep add to data frame and update relevant variable
 }
 for (i in 1:steps) {
 #If you still are alive draw again  
