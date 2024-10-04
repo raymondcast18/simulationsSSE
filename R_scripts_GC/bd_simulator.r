@@ -80,3 +80,26 @@ else {population[i + 1] <- 0}
   #                   tail(population, 1) + temp)
 }
 plot(population, type = "l")
+
+
+#Grace added with help of Sean 10-01
+
+#Need to make rate relatice
+relative <- cumsum(all_rates / sum(all_rates))
+
+#Draw an event from a uniform distribution
+draw <- runif(1)
+#Series of else if to detering where the draw falls along the "stick"
+if (draw < relative[1]) {
+  print("speciation state 1")
+} else if (draw < relative[2]) {
+  print("speciation state 2")
+} else if (draw < relative[3]) {
+  print("death state 1")
+} else if (draw < relative[4]) {
+  print("death state 2")
+} else if (draw < relative[5]) {
+  print("transition from state 1 to 2")
+} else if (draw < relative[6]) {
+  print("transition from state 2 to 1")
+}
