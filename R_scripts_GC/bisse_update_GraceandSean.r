@@ -16,18 +16,36 @@ sim_BiSSE = function(birth1, birth2, death1, death2, q12, q21, stop_time, curr_t
   #Change to have binary states
   population <- c(1,1)
   
-  # Running list of IDs
+  # Taxa list is a data structure containing information of taxon relationships and identitity.
+  # ID = taxon id which corresponds to the index of taxa_list
+  # Obj = object type (root, char, spec, tip)
+  # In = parent
+  # Out = daughter lineages
+  # State = current state
+  taxa_list = list()
+  # taxa bin will have IDs in each state which corresponds to the index of the vector
+  taxa_bin = list()
+  count = 0
   taxa_id <- rep(list(1), sum(population))
   
+  for (i in 1:length(population)){
+    for (x in 1:population[i]){
+      count=count+1
+      taxa_bin[i] = c(count)
+    taxa_list[[count]]<-list(
+      ID = count,
+      Obj = 'root',
+      In = c()   ,
+      Out = c('NA', 'NA'),
+      Time = 0,
+      State = i
+    )
+    }
+  }
+  
+
   # Taxa Relationships contains the parent-daughter relationships between taxa that will be added as the process is simulated
-  taxa_relationships <- data.frame(
-    Taxa_ID = unlist(taxa_id) ,
-    d_1 = rep(0, length(taxa_id)),
-    d_2 = rep(0, length(taxa_id)),
-    p = rep(0, length(taxa_id))
-  )
-  
-  
+
   #Make a table
   taxa_table <- data.frame(
     Taxa_1 = population[1],
@@ -61,6 +79,7 @@ sim_BiSSE = function(birth1, birth2, death1, death2, q12, q21, stop_time, curr_t
   if (draw < relative[1]) {
     print("speciation state 1")
     population[1] = population[1] + 1
+    random_taxon <- sample(1:length(taxa_bin[[1]]), 1)
     event = "speciation state 1"
   } else if (draw < relative[2]) {
     print("speciation state 2")
